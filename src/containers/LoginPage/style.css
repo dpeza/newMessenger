@@ -1,5 +1,46 @@
-.loginContainer, .registerContainer{
+.loginContainer{
     width: 400px;
     position: relative;
-    margin: 50px auto;
+    margin:10% auto;
+    align-items: center;
+    align-self: center;
+    
+    
 }
+
+.layout {
+    height: 100%
+}
+.inputs {
+    align-self: center;
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    
+    
+}
+.textFields {
+    margin: 5px;
+    height: 20px;
+    width: 90%;
+    text-align: center;
+   
+    
+}
+.button{
+    margin-top: 20px;
+    width: 50px;
+}
+.LoginLabel{
+    padding-top:  20px;
+    text-align: center;
+    align-self: center;
+    position: relative;
+}
+.noAccount { 
+    font-size: x-small;
+    margin-top: 10px;
+}
+

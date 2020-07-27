@@ -1,0 +1,38 @@
+.registerContainer{
+    width: 400px;
+    position: relative;
+    margin:10% auto;
+    align-items: center;
+}
+.SignUpHeader {
+    padding-top:  20px;
+    text-align: center;
+    align-self: center;
+    position: relative;
+}
+.textFields {
+    margin: 5px;
+    height: 20px;
+    width: 90%;
+    text-align: center;
+    
+}
+.inputs {
+    align-self: center;
+    position: relative;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    align-items: center;
+    
+    
+}
+.haveAccount { 
+    font-size: x-small;
+    margin-top: 10px;
+}
+.button {
+    margin-top: 10px;
+}

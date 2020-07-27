@@ -33,6 +33,39 @@ export const getRealtimeUsers = (uid) => {
     }
 
 }
+export const deleteChat = (user) => {
+    return async dispatch => {
+        var docs = [];
+        var list1= [];
+        list1.push('apple')
+        list1.push('pear')
+        console.log(list1)
+        const db = firestore()
+        var currentDocName = '';
+        db.collection('conversations')
+        .where('user_uid_1', 'in', [user.uid_1, user.uid_2])
+        .get()
+        .then((querySnapshot) =>{
+            querySnapshot.forEach(doc => {
+
+                if(
+                    (doc.data().user_uid_1 == user.uid_1 && doc.data().user_uid_2 == user.uid_2)
+                    || 
+                    (doc.data().user_uid_1 == user.uid_2 && doc.data().user_uid_2 == user.uid_1)
+                    &&
+                    (doc.data().deletedYet == false)
+                ){
+                    db.collection('conversations').doc(String(doc.id)).update({deletedYet: true})
+                    
+                }
+            }) 
+        });
+        
+        
+    }
+}
+
+
 
 export const updateMessage = (msgObj) => {
     return async dispatch => {
@@ -42,7 +75,8 @@ export const updateMessage = (msgObj) => {
         .add({
             ...msgObj,
             isView: false,
-            createdAt: new Date()
+            createdAt: new Date(),
+            deletedYet: false
         })
         .then((data) => {
             console.log(data)
@@ -74,13 +108,15 @@ export const getRealtimeConversations = (user) => {
             querySnapshot.forEach(doc => {
 
                 if(
-                    (doc.data().user_uid_1 == user.uid_1 && doc.data().user_uid_2 == user.uid_2)
+                    ((doc.data().user_uid_1 == user.uid_1 && doc.data().user_uid_2 == user.uid_2)
                     || 
-                    (doc.data().user_uid_1 == user.uid_2 && doc.data().user_uid_2 == user.uid_1)
+                    (doc.data().user_uid_1 == user.uid_2 && doc.data().user_uid_2 == user.uid_1))
+                    &&
+                    (doc.data().deletedYet==false)
                 ){
                     conversations.push(doc.data())
                 }
-
+/*
                 if(conversations.length > 0){
                     dispatch({
                         type: userConstants.GET_REALTIME_MESSAGES,
@@ -93,11 +129,14 @@ export const getRealtimeConversations = (user) => {
                     })
                 }
 
-
+*/
 
                 
             });
-
+            dispatch({
+                type: userConstants.GET_REALTIME_MESSAGES,
+                payload: {conversations}
+            })
             console.log(conversations);
         })
         //user_uid_1 == 'myid' and user_uid_2 = 'yourId' OR user_uid_1 = 'yourId' and user_uid_2 = 'myId'

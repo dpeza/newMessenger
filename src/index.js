@@ -10,16 +10,15 @@ import store from './store';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBF8co3-j6lq7qGI9b8s0U1YYEIwqXb4_0",
-  authDomain: "web-messenger-4eb99.firebaseapp.com",
-  databaseURL: "https://web-messenger-4eb99.firebaseio.com",
-  projectId: "web-messenger-4eb99",
-  storageBucket: "web-messenger-4eb99.appspot.com",
-  messagingSenderId: "252569616509",
-  appId: "1:252569616509:web:2bbb4c394e9d608f147114",
-  measurementId: "G-VXYE76S2G7"
+  apiKey: "AIzaSyAWX0BL6S0i2SkwqwzNm9X4nExgB6iWkSs",
+  authDomain: "web-messenger-47f44.firebaseapp.com",
+  databaseURL: "https://web-messenger-47f44.firebaseio.com",
+  projectId: "web-messenger-47f44",
+  storageBucket: "web-messenger-47f44.appspot.com",
+  messagingSenderId: "490291767343",
+  appId: "1:490291767343:web:beb443d26421d545bdbeda",
+  measurementId: "G-RQDNSQGXMX"
 };
-
 
 firebase.initializeApp(firebaseConfig);
 

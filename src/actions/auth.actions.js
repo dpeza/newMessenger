@@ -7,7 +7,7 @@ export const signup = (user) => {
     return async (dispatch) => {
 
         const db = firestore();
-
+        
         dispatch({type: `${authConstanst.USER_LOGIN}_REQUEST`});
 
         auth()
@@ -73,13 +73,13 @@ export const signin = (user) => {
         .then((data) => {
             console.log(data);
 
-
             const db = firestore();
             db.collection('users')
             .doc(data.user.uid)
             .update({
                 isOnline: true
             })
+            //sets the user to online
             .then(() => {
                 const name = data.user.displayName.split(" ");
                 const firstName = name[0];
@@ -91,13 +91,14 @@ export const signin = (user) => {
                     uid: data.user.uid,
                     email: data.user.email
                 }
-
+                //adds user object to local storage as a JSON file
                 localStorage.setItem('user', JSON.stringify(loggedInUser));
 
                 dispatch({
                     type: `${authConstanst.USER_LOGIN}_SUCCESS`,
                     payload: { user: loggedInUser }
                 });
+                //logs to console log in success
             })
             .catch(error => {
                 console.log(error)
@@ -114,6 +115,7 @@ export const signin = (user) => {
                 type: `${authConstanst.USER_LOGIN}_FAILURE`,
                 payload: { error }
             })
+            //logs to concole failure if user/password is incorrect
         })
         
 
@@ -163,11 +165,13 @@ export const logout = (uid) => {
                 dispatch({type: `${authConstanst.USER_LOGOUT}_SUCCESS`});
             })
             .catch(error => {
+                //failure
                 console.log(error);
                 dispatch({ type: `${authConstanst.USER_LOGOUT}_FAILURE`, payload: { error } })
             })
 
         })
+        //failure
         .catch(error => {
             console.log(error);
         })

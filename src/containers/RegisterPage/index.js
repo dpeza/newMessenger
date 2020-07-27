@@ -4,7 +4,8 @@ import Card from '../../components/UI/Card';
 import { signup } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-
+import './style.css';
+import { NavLink, Link } from 'react-router-dom';
 /**
 * @author
 * @function RegisterPage
@@ -41,16 +42,18 @@ const RegisterPage = (props) => {
     <Layout>
       <div className="registerContainer">
         <Card>
-          <form onSubmit={registerUser}>
+        <div className='SignUpHeader'>Sign up</div>
 
-            <h3>Sign up</h3>
+          <form onSubmit={registerUser} className="inputs">
 
+          
           <input 
               name="firstName"
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="First Name"
+              className="textFields"
             />
 
             <input 
@@ -59,6 +62,7 @@ const RegisterPage = (props) => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Last Name"
+              className="textFields"
             />
 
             <input 
@@ -67,6 +71,7 @@ const RegisterPage = (props) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              className="textFields"
             />
 
             <input 
@@ -75,12 +80,15 @@ const RegisterPage = (props) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              className="textFields"
             />
 
             <div>
-              <button>Sign up</button>
+              <button className='button'>Sign up</button>
             </div>
-
+            <div className="haveAccount">
+              Already Made An Account? <NavLink to={'/signin'}>Sign up</NavLink>
+            </div>
 
 
           </form>

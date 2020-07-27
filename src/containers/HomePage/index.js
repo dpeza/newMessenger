@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './style.css';
 import Layout from '../../components/Layout';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRealtimeUsers, updateMessage, getRealtimeConversations } from '../../actions';
+import { getRealtimeUsers, updateMessage, getRealtimeConversations, deleteChat } from '../../actions';
 
 
 const User = (props) => {
@@ -69,7 +69,7 @@ const HomePage = (props) => {
     setUserUid(user.uid);
 
     console.log(user);
-
+    
     dispatch(getRealtimeConversations({ uid_1: auth.uid, uid_2: user.uid }));
 
   }
@@ -93,6 +93,16 @@ const HomePage = (props) => {
     //console.log(msgObj);
 
   }
+  const deleteConvo = () => {
+    const user = {
+      uid_1:auth.uid,
+      uid_2:userUid
+
+    }
+    console.log(user)
+    dispatch(deleteChat(user))
+  
+  }
 
 
   return (
@@ -106,7 +116,7 @@ const HomePage = (props) => {
             user.users.length > 0 ?
             user.users.map(user => {
               return (
-                <User 
+                <User
                   onClick={initChat}
                   key={user.uid} 
                   user={user} 
@@ -122,9 +132,16 @@ const HomePage = (props) => {
         <div className="chatArea">
             
             <div className="chatHeader"> 
+            <div className='topUser'>
             {
-              chatStarted ? chatUser : ''
+              chatStarted ? 'To: ' + chatUser : ''
             }
+            </div>
+            
+            {
+              chatStarted ?  <button className= 'resetChat' onClick={deleteConvo} key={user.uid} user={user}>Clear Chat</button> : ''
+            }
+            
             </div>
             <div className="messageSections">
                 {

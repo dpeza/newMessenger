@@ -5,12 +5,17 @@ import { signin, isLoggedInUser } from '../../actions';
 import './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 /**
 * @author
 * @function LoginPage
 **/
-
+var x = 1;
+const wrongPass = () => {
+  x= 0;
+  return x
+}
 const LoginPage = (props) => {
 
   const [email, setEmail] = useState('');
@@ -55,10 +60,13 @@ const LoginPage = (props) => {
 
 
   return(
-    <Layout>
+    <Layout className="layout">
       <div className="loginContainer">
         <Card>
-          <form onSubmit={userLogin}>
+          <div className= "LoginLabel">
+          Login
+          </div>
+          <form onSubmit={userLogin} wrongPass className="inputs">
             
             <input 
               name="email"
@@ -66,6 +74,8 @@ const LoginPage = (props) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              className="textFields"
+              
             />
 
             <input 
@@ -74,14 +84,20 @@ const LoginPage = (props) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              className="textFields"
+              
+              
             />
 
 
             <div>
-              <button>Login</button>
+              <button className="button">Login</button>
             </div>
-
+            <div className="noAccount">
+              Don't have an account? <NavLink to={'/signup'}>Sign up</NavLink>
+            </div>
           </form>
+          
         </Card>
       </div>
     </Layout>
