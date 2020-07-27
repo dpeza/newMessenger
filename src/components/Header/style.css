@@ -3,7 +3,7 @@
     position: relative;
     height: 60px;
     display: flex;
-    background: orangered;
+    background: red;
     justify-content: space-between;
     box-sizing: border-box;
 }
