@@ -54,7 +54,7 @@ const LoginPage = (props) => {
 
 
   if(auth.authenticated){
-    return <Redirect to={`/`} />
+    return <Redirect to={`/home`} />
   }
 
 

@@ -3,7 +3,7 @@
     position: relative;
     height: 60px;
     display: flex;
-    background: red;
+    background: cornflowerblue;
     justify-content: space-between;
     box-sizing: border-box;
 }
@@ -33,6 +33,7 @@
     display: flex; 
     color: #fff; 
     margin: 20px;
+    
 }
 
 .leftMenu > li{
