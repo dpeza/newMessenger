@@ -25,11 +25,11 @@ function App() {
     <div className="App">
       <Router>
         {/* only logged in user can access this home route */}
-        <PrivateRoute path="/home" exact component={HomePage} />
         <PrivateRoute path="/calendar" exact component={CalendarPage} />
 
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={RegisterPage} />
+        <PrivateRoute path="/" exact component={HomePage} />
       </Router>
     </div>
   );

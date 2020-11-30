@@ -30,7 +30,7 @@ const Header = (props) => {
                 <li><NavLink to={'/signup'}>Sign up</NavLink></li>
               </ul> : 
               <ul className="leftMenu">
-                  <li><NavLink to={'/home'}> Home</NavLink></li>
+                  <li><NavLink to={'/'}> Home</NavLink></li>
                   <li><NavLink to={'/calendar'}>Calendar</NavLink></li>
                     
               </ul>

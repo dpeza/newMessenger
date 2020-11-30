@@ -2,7 +2,7 @@ import { auth, firestore } from 'firebase';
 import { authConstanst } from './constants';
 import { getRealtimeUsers } from './user.actions';
 
-export const signup = (user) => {
+export const signupWithJoinTeam = (user) => {
 
     return async (dispatch) => {
 
@@ -32,6 +32,7 @@ export const signup = (user) => {
                 })
                 .then(() => {
                     //succeful
+                    collection('groups').doc(user.groupId).update({members: firebase.firestore.FieldValue.arrayUnion(data.user.uid)})
                     const loggedInUser = {
                         firstName: user.firstName,
                         lastName: user.lastName,
@@ -50,7 +51,7 @@ export const signup = (user) => {
                     dispatch({ 
                         type: `${authConstanst.USER_LOGIN}_FAILURE`,
                         payload: { error }
-                      });
+                    });
                 });
             });
         })
@@ -63,7 +64,73 @@ export const signup = (user) => {
 
 
 }
+export const signupWithCreateTeam = (user) => {
+    return async (dispatch) => {
 
+        const db = firestore();
+        
+        dispatch({type: `${authConstanst.USER_LOGIN}_REQUEST`});
+        db.collection('groups').add({
+            groupName: user.groupName
+        }).then((docRef) =>{
+            auth()
+                .createUserWithEmailAndPassword(user.email, user.password)
+                .then(data => {
+                    console.log(data);
+                    const currentUser = auth().currentUser;
+                    const name = `${user.firstName} ${user.lastName}`;
+                    currentUser.updateProfile({
+                        displayName: name
+                    })
+                    .then(() => {
+                        //if you are here means it is updated successfully
+                        db.collection('groups').doc(docRef).update({parents: [data.user.uid]});
+                        db.collection('users')
+                        .doc(data.user.uid)
+                        .set({
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            uid: data.user.uid,
+                            createdAt: new Date(),
+                            isOnline: true,
+                            group : docRef
+                        })
+                        .then(() => {
+                            //succeful
+                            const loggedInUser = {
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                uid: data.user.uid,
+                                email: user.email,
+                                group: docRef
+                            }
+                            localStorage.setItem('user', JSON.stringify(loggedInUser));
+                            console.log('User logged in successfully...!');
+                            dispatch({
+                                type: `${authConstanst.USER_LOGIN}_SUCCESS`,
+                                payload: { user: loggedInUser }
+                            })
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            dispatch({ 
+                                type: `${authConstanst.USER_LOGIN}_FAILURE`,
+                                payload: { error }
+                            });
+                        });
+                    });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                })
+                
+
+
+    }
+
+
+}
 export const signin = (user) => {
     return async dispatch => {
 

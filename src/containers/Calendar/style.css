@@ -1,0 +1,11 @@
+.page {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    
+}
+.calander {
+    margin-right: 50%;
+    margin-top: 10%;
+  
+}
